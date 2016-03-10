@@ -8,7 +8,7 @@ import unittest
 gravitProgramBin = ''
 
 ####################
-#  Test Expected Data
+# Test Expected Data
 #
 ####################
 ObjData = {
@@ -18,10 +18,31 @@ ObjData = {
 			  (3,'fileLocationLayer3'))	
 }
 
+validateFileName = 'validation'
+
+####################
+# Tests
+#
+####################
+def isSame(a,b, errorMargin):
+    if a == b:
+        return true;
+
+
+def textDiff(file1, file2):
+    with open(file1) as f1, open(file2) as f2:
+        for x,y in zip(f1,f2):
+            ## do some matching here
+            print("{0}\t{1}".format(x.strip(),y.strip()))
 
 
 def testLayer(obj, layer):
-    return layer + 1
+    expectedResults = ObjData[obj]
+    for result in expectedResults:
+        if result[0] == layer:
+            textDiff(validateFileName, result[1])
+
+
 
 class MyTest(unittest.TestCase):
     def testOBJLayers(self):
